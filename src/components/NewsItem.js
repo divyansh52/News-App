@@ -2,16 +2,39 @@ import React, { Component } from "react";
 
 export class NewsItem extends Component {
   render() {
-    let { imageUrl, title, description, newsUrl } = this.props;
+    let { imageUrl, title, description, newsUrl, author, time, source, color } =
+      this.props;
     return (
-      <div className="card my-3" style={{ width: "18rem" }}>
-        <img src={imageUrl} className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">{title.substring(0, 10) + "..."}</h5>
-          <p className="card-text">{description.substring(0, 30) + "..."}</p>
-          <a href={newsUrl} target="_blank" className="btn btn-sm btn-primary">
-            Read More
-          </a>
+      <div className="container">
+        <div className="my-3">
+          <div className="card">
+            <span
+              className={`position-absolute top-0 translate-middle badge rounded-pill bg-${color}`}
+              style={{ left: "90%" }}
+            >
+              {source}
+            </span>
+            <img src={imageUrl} className="card-img-top" alt="..." />
+            <div className="card-body">
+              <h5 className="card-title">{title}</h5>
+              <p className="card-text">{description}</p>
+              <p className="card-text">
+                <small className="text-muted">
+                  {/* If author is null then render Unknown in place of author and show the time in GMT format  */}
+                  By {author ? author : "Unknown"} on{" "}
+                  {new Date(time).toGMTString()}
+                </small>
+              </p>
+              <a
+                rel="noreferrer"
+                href={newsUrl}
+                target="_blank"
+                className="btn btn-sm btn-dark"
+              >
+                Read More
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     );
